@@ -15,6 +15,10 @@
 </head>
 <body>
 <div>
+<!--
+这里采用的是js根据static/questions_data.js里面的数据动态生成测试页面的
+主要的代码逻辑在utils.js
+-->
     <form class="questions" id="form" action="#" method="post">
         <h1 id="header"></h1>
         <table>
@@ -39,13 +43,11 @@
                                       p-id="9244"></path>
                             </svg>
                         </div>
-
                     </div>
                 </td>
 
                 <td>Student ID:</td>
                 <td><input name="student_id"/></td>
-
                 <td>Name:</td>
                 <td><input name="student_name"/></td>
             </tr>
