@@ -3,8 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <title>HTML</title>
+    <style>
+        .choice_question {
+            margin: 10px 0;
+        }
+
+        .blanks_input {
+            margin-left: 8px;
+        }
+    </style>
 </head>
 <body>
+<div>
+    <form class="questions" id="form" action="#" method="post">
+        <h1 id="header"></h1>
+        <table>
+            <tr>
+                <td>Test Subject:</td>
+                <td id="subject"></td>
+                <td>Time:</td>
+                <td><span id="time">0</span> minute <span id="seconds">0</span> second</td>
+                <td>Score</td>
+                <td id="score"></td>
+            </tr>
 
+            <tr>
+                <td>Class:</td>
+                <td>
+                    <div style="display: flex">
+                        <input name="class">
+                        <div style="position: relative;right: 20px;display: flex;align-items: center">
+                            <svg t="1591708071056" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                 xmlns="http://www.w3.org/2000/svg" p-id="9243" width="15" height="15">
+                                <path d="M1023.008 148.048c0 10.016-6.928 18.144-15.472 18.144L249.152 166.192c-8.56 0-15.472-8.112-15.472-18.144 0-10.032 6.912-18.16 15.472-18.16l758.384 0C1016.096 129.904 1023.008 138.016 1023.008 148.048zM1007.552 365.792 249.152 365.792c-8.56 0-15.472 8.112-15.472 18.144 0 10.016 6.912 18.128 15.472 18.128l758.384 0c8.544 0 15.472-8.096 15.472-18.128C1023.008 373.904 1016.096 365.792 1007.552 365.792zM1007.552 619.824 249.152 619.824c-8.56 0-15.472 8.112-15.472 18.112 0 10.032 6.912 18.176 15.472 18.176l758.384 0c8.544 0 15.472-8.144 15.472-18.176C1023.008 627.936 1016.096 619.824 1007.552 619.824zM1007.552 855.664 249.152 855.664c-8.56 0-15.472 8.144-15.472 18.16 0 10.032 6.912 18.16 15.472 18.16l758.384 0c8.544 0 15.472-8.128 15.472-18.16C1023.008 863.808 1016.096 855.664 1007.552 855.664zM140.816 129.904 17.008 129.904c-8.56 0-15.488 8.112-15.488 18.16 0 10.016 6.928 18.144 15.488 18.144l123.808 0c8.56 0 15.488-8.112 15.488-18.144C156.304 138.016 149.376 129.904 140.816 129.904zM140.816 365.792 17.008 365.792c-8.56 0-15.488 8.112-15.488 18.144 0 10.016 6.928 18.128 15.488 18.128l123.808 0c8.56 0 15.488-8.096 15.488-18.128C156.304 373.904 149.376 365.792 140.816 365.792zM140.816 619.824 17.008 619.824c-8.56 0-15.488 8.112-15.488 18.112 0 10.032 6.928 18.176 15.488 18.176l123.808 0c8.56 0 15.488-8.144 15.488-18.176C156.304 627.936 149.376 619.824 140.816 619.824zM140.816 855.664 17.008 855.664c-8.56 0-15.488 8.144-15.488 18.16 0 10.032 6.928 18.16 15.488 18.16l123.808 0c8.56 0 15.488-8.128 15.488-18.16C156.304 863.808 149.376 855.664 140.816 855.664z"
+                                      p-id="9244"></path>
+                            </svg>
+                        </div>
+
+                    </div>
+                </td>
+
+                <td>Student ID:</td>
+                <td><input name="student_id"/></td>
+
+                <td>Name:</td>
+                <td><input name="student_name"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" src="static/questions_data.js"></script>
+<script type="text/javascript" src="static/utils.js"></script>
+<script type="text/javascript">
+    let form = document.getElementById('form')
+    let data = {
+        title: "",
+        subject: '',
+        time: 0,// minute
+        score: 0,
+        id: '0',
+        questions: []
+    }
+    let count_time = {
+        minute: 0,
+        seconds: 0,
+    }
+
+    bindNode(document.getElementById('header'), data, 'title')
+    bindNode(document.getElementById('subject'), data, 'subject')
+    bindNode(document.getElementById('score'), data, 'score')
+    bindNode(document.getElementById('time'), count_time, 'minute')
+    bindNode(document.getElementById('seconds'), count_time, 'seconds')
+
+    Object.assign(data, getData())
+    count_time.minute = data.time
+
+    let tout = setInterval(() => {
+        if (count_time.seconds <= 0) {
+            count_time.seconds = 60
+            count_time.minute -= 1
+        }
+        count_time.seconds -= 1
+
+        if (data.time <= 0) {
+            alert("Time out!")
+            clearInterval(tout)
+        }
+    }, 1000)
+
+    let nodes = generateQuestionsTemplate(data.questions)
+    form.append(...nodes)
+
+</script>
 </body>
 </html>
