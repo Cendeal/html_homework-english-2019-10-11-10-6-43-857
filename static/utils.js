@@ -133,8 +133,8 @@ function shortAnswerTemplate(data) {
     answer.setAttribute('type', 'text')
     answer.setAttribute("class", `short_answer_textarea`)
     answer.setAttribute('minlength', data.maxLength)
-    answer.setAttribute('rows','10')
-    answer.setAttribute('cols','120')
+    answer.setAttribute('rows', '10')
+    answer.setAttribute('cols', '120')
     div.append(answer)
     qNode.append(div)
     return qNode
