@@ -130,6 +130,7 @@ function shortAnswerTemplate(data) {
     qNode.innerText = data.question
     let div = $ITA.createElement('div')
     let answer = $ITA.createElement('textarea')
+    answer.setAttribute("name", `${data.id}`)
     answer.setAttribute('type', 'text')
     answer.setAttribute("class", `short_answer_textarea`)
     answer.setAttribute('minlength', data.maxLength)
